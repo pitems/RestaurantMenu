@@ -1,15 +1,19 @@
 package com.example.restaurantmenu.models
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
+
 data class Recipe (
-    @Json(name="title")
-    val title:String,
-    val publisher:String,
-    val recipe_id:String,
-    val image_url:String,
-    val social_rank:Double
+    @SerializedName("title")
+    var title:String? =null,
+    @SerializedName("publisher")
+    var publisher:String?=null,
+    @SerializedName("recipe_id")
+    var recipe_id:String?=null,
+    @SerializedName("image_url")
+    var image_url:String?=null,
+    @SerializedName("social_rank")
+    var social_rank:Double?=null
 
     )
+
