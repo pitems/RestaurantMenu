@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import com.example.restaurantmenu.models.Recipe
 import com.example.restaurantmenu.requests.RecipeApi
 import com.example.restaurantmenu.requests.ServiceGenerator
+import com.example.restaurantmenu.requests.responses.RecipeResponse
 import com.example.restaurantmenu.requests.responses.RecipeSearchResponse
 import kotlinx.android.synthetic.main.activity_recipe_list.*
 import okhttp3.ResponseBody
@@ -20,7 +21,7 @@ class RecipeListActivity : BaseActivity() {
         setContentView(R.layout.activity_recipe_list)
         Log.d("Visibility", progressbar.isVisible.toString())
         btn_test.setOnClickListener {
-           testRetrofitRequest()
+           testRetrofitRequestRecipe()
         }
 
     }
@@ -36,9 +37,6 @@ class RecipeListActivity : BaseActivity() {
 
     }
     private fun testRetrofitRequest(){
-        //This will set the recipeAPi
-        val recipeApi = ServiceGenerator.getRecipeApi()
-        //Setting up the search
 
        val request = ServiceGenerator.buildService(RecipeApi::class.java)
         val call = request.searchRecipe("chicken","1")
@@ -71,6 +69,34 @@ class RecipeListActivity : BaseActivity() {
             override fun onFailure(call: Call<RecipeSearchResponse>, t: Throwable) {
 
             }
+
+        })
+
+
+    }
+
+    private fun testRetrofitRequestRecipe(){
+
+        val request = ServiceGenerator.buildService(RecipeApi::class.java)
+        val call = request.getrecipe("41470")
+        call.enqueue(object : Callback<RecipeResponse>{
+            override fun onResponse(call: Call<RecipeResponse>,
+                                    response: Response<RecipeResponse>
+            ) {
+
+                if(response.code()==200){
+                    var recipe = response.body()!!.getRecipe()
+                    Log.d("ToString response", "onResponse: ${response.body()!!.getRecipe().toString()}")
+                    Log.d("Server Response Body", "onResponse: ${recipe!!.title}")
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
+
+            }
+
 
         })
 

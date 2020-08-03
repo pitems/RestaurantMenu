@@ -8,6 +8,7 @@ class RecipeSearchResponse {
     @SerializedName("count")
     @Expose
     var count:String?=null
+
     var recipes:List<Recipe>?=null
 
 }

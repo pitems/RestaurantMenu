@@ -1,6 +1,7 @@
 package com.example.restaurantmenu.requests
 
 import com.example.restaurantmenu.models.Recipe
+import com.example.restaurantmenu.requests.responses.RecipeResponse
 import com.example.restaurantmenu.requests.responses.RecipeSearchResponse
 import com.example.restaurantmenu.util.Constants
 import retrofit2.Call
@@ -20,6 +21,6 @@ interface RecipeApi {
     @GET("/api/get")
     fun getrecipe(
         @Query("rId") rId:String
-    ):Call<Recipe>
+    ):Call<RecipeResponse>
 
 }
